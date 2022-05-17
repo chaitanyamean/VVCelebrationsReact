@@ -60,6 +60,19 @@ function Dashboard() {
       });
   };
 
+  const refresh = () => {
+    getServiceList()
+  }
+
+  const getTotalMoney = () => {
+    let val =  res.reduce((acc, curr) => {
+        console.log(acc, curr)
+        return acc + curr.cost
+    }, 0)
+
+    return 150000 - val;
+  }
+
   return (
     <div>
       <p>Hi {data.firstName}</p>
@@ -72,6 +85,9 @@ function Dashboard() {
           <Button variant="success"
             style={{float: 'right', marginBottom: '10px'}}
             onClick={handleAdd}>Add</Button>
+            <Button 
+            style={{float: 'right', marginBottom: '10px', marginRight: '10px'}}
+            onClick={refresh}>Refresh</Button>
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -81,11 +97,6 @@ function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {/* <tr>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr> */}
 
             {res && res.length > 0 && res.map((item, index) => {
                 return(
@@ -104,6 +115,11 @@ function Dashboard() {
             
           </tbody>
         </Table>
+        <div>
+            <span>Money Remaining: </span>
+            <span>{getTotalMoney()} </span>
+
+        </div>
       </Container>
     }
     </div>
